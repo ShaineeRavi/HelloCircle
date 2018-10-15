@@ -1,0 +1,53 @@
+package com.mondia.test;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+
+public class Travelshop {
+	
+	public static WebDriver driver;
+	public static WebDriverWait wait = null;
+	
+  @Test
+  public void Testcase_Searching_01() throws InterruptedException, IOException {
+	  try {
+		SearchPage page = new SearchPage(driver);
+		  page.TC_01_Searching();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		//Utility.takeSnapShot(driver, strore);
+		e.printStackTrace();
+	}
+	  
+	  
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  
+	    //WebDriverWait wait = new WebDriverWait(driver,20);
+	    System.setProperty("webdrive.chrome.driver", "Drivers\\chromedriver.exe");
+		driver = new ChromeDriver();
+		//driver.manage().window().maximize();
+		driver.get("https://www.phptravels.net/");
+		wait = new WebDriverWait(driver, 20);
+  }
+
+  
+  
+  @AfterTest
+  public void afterTest() {
+	 //driver.quit();
+	  if (driver != null) {
+			driver.quit();
+			driver = null;
+		}
+  }
+
+}
