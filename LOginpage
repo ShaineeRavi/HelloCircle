@@ -1,0 +1,119 @@
+package com.iea.etimss.pages;
+
+import com.iea.etimss.util.TestUtilities;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LoginPage {
+	public static Map<Integer, Integer> PlayerCredentials = new HashMap<Integer, Integer>();
+	public static WebDriver objWebDriver;
+	
+	@SuppressWarnings("static-access")
+	public LoginPage(WebDriver objWebDriver) {
+		this.objWebDriver = objWebDriver;
+		PageFactory.initElements(objWebDriver, this);
+	}
+		
+	@FindBy(id = "StudentID")
+	private WebElement tfStudentId;
+	
+	@FindBy(xpath= "//input[contains(@id,'StudentID')]")
+	private WebElement tfstudent;
+
+	@FindBy(id = "inputPassword")
+	private WebElement tfPassword;
+	
+	@FindBy(id = "inputCode")
+	private WebElement tftestpassword;
+		
+	@FindBy(xpath = "//*[@i18n='system.start']")
+	private WebElement btnStart;
+
+	@FindBy(xpath = "//*[contains(@i18n,'system.start')]")
+	private WebElement btnStartpart1;
+
+	@FindBy(xpath = "//*[@i18n='system.log-in']")
+	private WebElement btnLogin;
+	
+	public void login() throws InterruptedException, IOException {
+		Map.Entry<Integer, Integer> credentials = PlayerCredentials.entrySet().iterator().next();
+				
+		if (tfStudentId.isDisplayed()) {
+			
+			long start = System.currentTimeMillis();
+			tfstudent.sendKeys(credentials.getKey().toString());
+			System.out.println("ID is :" +credentials.getKey().toString());
+			TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
+			System.out.println("Pasword is :" +credentials.getValue().toString());
+			Thread.sleep(1000);
+			tfPassword.sendKeys(credentials.getValue().toString());			
+			TestUtilities.buttonClick(btnLogin, 1);
+			
+			TestUtilities.takescreenshot(objWebDriver,"");
+			
+			/*tfstudent.sendKeys("10005");
+			TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
+			tfPassword.sendKeys("15851");			
+			TestUtilities.buttonClick(btnLogin, 1);	*/	
+					
+		    long finish = System.currentTimeMillis();
+		    long totalTime = finish - start; 
+		    System.out.println("Total Time taken for the Login page to load - "+totalTime);
+		}
+		    
+		    long start1 = System.currentTimeMillis();
+		    TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputCode")));	
+			tftestpassword.sendKeys(TestUtilities.getDataFromPropertiesFile("TEST_PASSWORD"));
+			TestUtilities.buttonClick(btnStartpart1, 1);
+			TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@ng-click='Next()']")));
+			//Thread.sleep(3000);			
+		    long finish1 = System.currentTimeMillis();
+		    long totalTime1 = finish1 - start1; 
+		    System.out.println("Total Time taken for the Tutorial Login page to load - "+totalTime1);
+	    }
+		
+		public void partLogin() throws InterruptedException {		
+		
+	       long start = System.currentTimeMillis();
+		   TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@i18n,'system.start')]")));
+	       tftestpassword.sendKeys(TestUtilities.getDataFromPropertiesFile("TEST1_PASSWORD"));
+	       TestUtilities.buttonClick(btnStartpart1, 1);	
+	       long finish = System.currentTimeMillis();
+	       long totalTime = finish - start; 
+	       System.out.println("Total Time taken for the Part I Login page to load - "+totalTime);
+     }
+
+		public void partLogin2() throws InterruptedException {	
+			
+		    long start = System.currentTimeMillis();
+			TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@i18n,'system.start')]")));
+			tftestpassword.sendKeys(TestUtilities.getDataFromPropertiesFile("TEST2_PASSWORD"));
+			TestUtilities.buttonClick(btnStartpart1, 1);				
+			long finish = System.currentTimeMillis();
+		    long totalTime = finish - start; 
+		    System.out.println("Total Time taken for the Part II Login page to load - "+totalTime);
+	}
+
+		public void questionaire() throws InterruptedException {		
+		    long start = System.currentTimeMillis();
+			TestUtilities.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@i18n,'system.start')]")));
+		    tftestpassword.sendKeys(TestUtilities.getDataFromPropertiesFile("QUESTIONAIRE_PASSWORD"));
+		    TestUtilities.buttonClick(btnStartpart1, 1);		
+		    long finish = System.currentTimeMillis();
+		    long totalTime = finish - start; 
+		    System.out.println("Total Time taken for the Questionnaire Login page to load - "+totalTime);
+	 }
+
+		
+  }
+		
+
