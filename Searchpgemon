@@ -1,0 +1,69 @@
+package com.mondia.test;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class SearchPage {
+	public static WebDriver driver;
+	
+	
+	@FindBy(xpath = "//*[@id='s2id_autogen8']")
+	private WebElement searchtab;	
+	
+	@FindBy(xpath = "//*[@class='select2-input select2-focused'] ")
+	private WebElement searchclick;
+	
+	@FindBy(xpath = "//*[@id=\"select2-drop\"]/ul/li/ul/li[2]")
+	private WebElement dropdownclick;
+	
+	@FindBy(xpath = "//*[@id=\"dpd1\"]/div/input ")
+	private WebElement datepicker;
+	
+	@FindBy(xpath = "/html/body/div[8]/div[1]/table/tbody/tr[3]/td[3]")
+	private WebElement selectdate;
+	
+	@FindBy(xpath = "/html/body/div[9]/div[1]/table/tbody/tr[4]/td[5]")
+	private WebElement enddate;
+	
+	@FindBy(xpath = "//*[@id=\"dpd2\"]/div/input")
+	private WebElement checkout; 
+	
+	
+	public SearchPage(WebDriver driver) {
+		SearchPage.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+
+	public void TC_01_Searching () throws InterruptedException {
+		//WebDriverWait wait = new WebDriverWait(driver,20);
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select2-drop']/div/input")));
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		searchtab.click();
+		
+		//Thread.sleep(1000);
+		//searchclick.click();
+		searchclick.sendKeys("ham");
+		//Thread.sleep(5000);
+		//Travelshop.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"select2-drop\"]/ul/li/ul/li[2]")));
+		dropdownclick.click();
+		datepicker.click();
+		selectdate.click();
+		//Thread.sleep(3000);
+		//checkout.click();
+		enddate.click();
+		
+		
+		
+	}
+
+}
